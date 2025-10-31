@@ -1,6 +1,6 @@
 services:
   lightrag:
-    container_name: lightrag
+    container_name: ${CONTAINER_NAME:-lightrag}
     image: ghcr.io/hkuds/lightrag:latest
     build:
       context: .
