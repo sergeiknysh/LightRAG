@@ -1,8 +1,6 @@
 services:
   lightrag:
     image: ghcr.io/hkuds/lightrag:latest
-    ports:
-      - "9621:9621"
     volumes:
       - lightrag_rag_storage:/app/data/rag_storage
       - lightrag_inputs:/app/data/inputs
@@ -11,6 +9,18 @@ services:
     restart: unless-stopped
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    networks:
+      - dokploy-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.lightrag.rule=Host(`lr-mediocre.cepta.cloud`)"
+      - "traefik.http.routers.lightrag.entrypoints=websecure"
+      - "traefik.http.routers.lightrag.tls.certresolver=letsencrypt"
+      - "traefik.http.services.lightrag.loadbalancer.server.port=9621"
+
+networks:
+  dokploy-network:
+    external: true
 
 volumes:
   lightrag_rag_storage:
