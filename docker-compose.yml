@@ -17,10 +17,12 @@ services:
       - traefik.http.routers.lr2-web.rule=Host(`lr-mediocre.cepta.cloud`)
       - traefik.http.routers.lr2-web.entrypoints=web
       - traefik.http.routers.lr2-web.middlewares=redirect-to-https@file
+      - traefik.http.routers.lr2-web.service=lr2-svc
       - traefik.http.routers.lr2-websecure.rule=Host(`lr-mediocre.cepta.cloud`)
       - traefik.http.routers.lr2-websecure.entrypoints=websecure
       - traefik.http.routers.lr2-websecure.tls.certresolver=letsencrypt
-      - traefik.http.services.lr2.loadbalancer.server.port=9621
+      - traefik.http.routers.lr2-websecure.service=lr2-svc
+      - traefik.http.services.lr2-svc.loadbalancer.server.port=9621
 
 networks:
   dokploy-network:
