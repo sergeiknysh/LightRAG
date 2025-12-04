@@ -11,6 +11,12 @@ services:
       - "host.docker.internal:host-gateway"
     networks:
       - dokploy-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.lr2-lightrag.rule=Host(`lr-mediocre.cepta.cloud`)"
+      - "traefik.http.routers.lr2-lightrag.entrypoints=websecure"
+      - "traefik.http.routers.lr2-lightrag.tls.certresolver=letsencrypt"
+      - "traefik.http.services.lr2-lightrag.loadbalancer.server.port=9621"
 
 networks:
   dokploy-network:
