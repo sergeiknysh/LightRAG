@@ -2,7 +2,7 @@ services:
   lightrag:
     container_name: ${CONTAINER_NAME:-lightrag}
     image: ghcr.io/hkuds/lightrag:latest
-    ports:a
+    ports:
       - "${PORT:-9621}:9621"
     volumes:
       - lightrag_rag_storage:/app/data/rag_storage
